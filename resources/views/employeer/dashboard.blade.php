@@ -42,10 +42,6 @@
                            @endforeach
                        </div>
                    </div>
-               <tr>
-                   <td rowspan="{{count($job->applyJobs)}}">{{$job->job_title}}</td>
-
-               </tr>
                    @empty
 
                        <h3 class="text-center">No Job Found</h3>

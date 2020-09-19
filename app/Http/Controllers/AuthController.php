@@ -83,7 +83,7 @@ class AuthController extends Controller
 
             if ($user->save()){
                 session()->flash('success','Registration Complete');
-				Auth::loginUsingId(1);
+				Auth::loginUsingId($user->id);
                 if (auth()->user()->user_type == 1){
                     return redirect()->route('dashboard');
                 }else{

@@ -15,21 +15,19 @@ class ApplicantController extends Controller
 {
     public function profile(Request $request){
 
-        $applicantId = decrypt($request->get('id'));
-        $id = '';
-        if (!empty($applicantId)){
-            $id =$applicantId;
-        }else{
-            $id = auth()->id();
+        if (!empty($request->get('id'))){
+            $applicantId = decrypt($request->get('id'));
         }
 
-
-        if (!empty($id)){
+        if (!empty($applicantId) && auth()->user()->user_type == 1){
             $user  = User::select('id','first_name','last_name','email')
                 ->with('profilePhoto','skills','resume')
-                ->find($id);
+                ->find($applicantId);
+        }else{
+            $user  = User::select('id','first_name','last_name','email')
+                ->with('profilePhoto','skills','resume')
+                ->find(auth()->id());
         }
-
         if (!empty($user)){
             return view('applicant.profile',compact('user'));
         }else{
